@@ -14,6 +14,12 @@ The main theorem is [`WideE.isUnit_valueSubring_iff_algebraicScalarExp`](WideE/C
 The proof lifts the inverse relation along a pointed Kummer cover by descending
 two opposite character weights of the connected Picard–Vessiot group.
 
+## General tensor comparison
+
+A Kummer section gives a normalized natural tensor comparison for the generated
+systems. Existence in this generality takes Pianzola's torsor section statement
+as an explicit hypothesis. See the [Lean construction](WideE/GeneratedPVComparison.lean).
+
 ## Reproducibility
 
 Requires Git and elan. The project pins Lean 4.19.0, Mathlib, and

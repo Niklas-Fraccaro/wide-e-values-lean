@@ -4,6 +4,8 @@ import WideE.CharacterClassification
 import WideE.Classification
 import WideE.ConnectedKummerClassification
 import WideE.GaloisTorsor
+import WideE.GeneratedPVComparison
+import WideE.GenericComponentSection
 import WideE.KummerFractionField
 import WideE.KummerSections
 import WideE.LaurentTorsorPatch
