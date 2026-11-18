@@ -14,13 +14,6 @@ The main theorem is [`WideE.isUnit_valueSubring_iff_algebraicScalarExp`](WideE/C
 The proof lifts the inverse relation along a pointed Kummer cover by descending
 two opposite character weights of the connected Picard–Vessiot group.
 
-## General tensor comparison
-
-For each Laurent system over the algebraic numbers, a Kummer cover gives a
-normalized natural tensor comparison on the generated systems, as in §7.3 of
-the paper. Lean proves both the existence of the comparison and the
-connected-group torsor section theorem it uses. [Lean statements and proofs](WideE/Pianzola.lean)
-
 ## Reproducibility
 
 Requires Git and elan. The project pins Lean 4.19.0, Mathlib, and
