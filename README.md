@@ -1,24 +1,18 @@
 # Wide Siegel E-values
 
-This Lean library reduces the unit classification for wide Siegel E-values to a
-torsor section theorem. Its main result characterizes the units as
-$a\exp(b)$ with $a$ and $b$ algebraic and $a\ne 0$.
+This Lean library proves that the units of the ring of wide Siegel E-values
+are exactly $a\exp(b)$ with $a$ and $b$ algebraic and $a\ne 0$.
 
-## Assumption
+## Main theorem
 
-The classification takes `WideE.PianzolaForKummerAlgebras WideE.AlgebraicComplex`
-as an explicit hypothesis. It asserts that torsors under smooth connected affine
-algebraic groups over the Laurent rings of the Kummer covers have sections.
-See the [Lean statement](WideE/PianzolaReduction.lean) and
-[Pianzola, Proposition 5(ii)(b)](https://arxiv.org/pdf/math/0203277v2#page=5).
-
-The main theorem is
-[`WideE.isUnit_valueSubring_iff_algebraicScalarExp_of_pianzola`](WideE/KummerSections.lean).
+The main theorem is [`WideE.isUnit_valueSubring_iff_algebraicScalarExp`](WideE/CharacterClassification.lean).
 
 ```lean
-WideE.PianzolaForKummerAlgebras WideE.AlgebraicComplex →
-  ∀ u : WideE.valueSubring, IsUnit u ↔ WideE.IsAlgebraicScalarExp (u : ℂ)
+∀ u : WideE.valueSubring, IsUnit u ↔ WideE.IsAlgebraicScalarExp (u : ℂ)
 ```
+
+The proof lifts the inverse relation along a pointed Kummer cover by descending
+two opposite character weights of the connected Picard–Vessiot group.
 
 ## Reproducibility
 

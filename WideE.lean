@@ -1,6 +1,8 @@
 import WideE.AdditiveTorsor
 import WideE.BrauerC1
+import WideE.CharacterClassification
 import WideE.Classification
+import WideE.ConnectedKummerClassification
 import WideE.GaloisTorsor
 import WideE.KummerFractionField
 import WideE.KummerSections
@@ -8,4 +10,5 @@ import WideE.LaurentTorsorPatch
 import WideE.MatrixHilbert90
 import WideE.MultiplicativeTorsor
 import WideE.ProjectiveSection
+import WideE.RationalODE
 import WideE.TorsorFiltration

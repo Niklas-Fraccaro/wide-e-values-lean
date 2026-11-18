@@ -17,9 +17,41 @@ example (h : PianzolaForKummerAlgebras AlgebraicComplex) (ξ : ℂ) :
     IsWideEValueUnit ξ ↔ IsAlgebraicScalarExp ξ :=
   wideEValueUnit_iff_algebraicScalarExp_of_pianzola h ξ
 
+example (ξ : ℂ) :
+    (ξ ≠ 0 ∧ IsWideEValue ξ ∧ IsWideEValue ξ⁻¹) ↔
+      ∃ α β : ℂ, IsAlgebraic ℚ α ∧ α ≠ 0 ∧ IsAlgebraic ℚ β ∧
+        ξ = α * Complex.exp β :=
+  wideEValueUnit_iff_algebraicScalarExp ξ
+
+example (u : valueSubring) : IsUnit u ↔ IsAlgebraicScalarExp (u : ℂ) :=
+  isUnit_valueSubring_iff_algebraicScalarExp u
+
+example (K : IntermediateField ℚ AlgebraicComplex) (a : ℕ → K) :
+    HasWideEArithmetic (fun n => (a n : AlgebraicComplex)) ↔
+      ∀ ε : ℝ, 0 < ε →
+        ∃ C : ℝ, 1 ≤ C ∧
+          (∀ σ : K →ₐ[ℚ] ℂ, ∀ n : ℕ, ‖σ (a n)‖ ≤ C * (n.factorial : ℝ) ^ ε) ∧
+          ∃ d : ℕ → ℕ, (∀ n, 0 < d n) ∧
+            (∀ n, (d n : ℝ) ≤ C * (n.factorial : ℝ) ^ ε) ∧
+            ∀ n j : ℕ, j ≤ n → IsIntegral ℤ ((d n : ℂ) * ((a j : AlgebraicComplex) : ℂ)) := by
+  constructor
+  · intro h ε hε
+    obtain ⟨C, hC, hσ, hd⟩ := h ε hε
+    refine ⟨C, hC, ?_, hd⟩
+    intro σ n
+    obtain ⟨τ, hτ⟩ := StrictEUnit.algebraicComplex_embedding_extends K σ
+    rw [← hτ]
+    exact hσ τ n
+  · intro h ε hε
+    obtain ⟨C, hC, hσ, hd⟩ := h ε hε
+    exact ⟨C, hC, fun τ n => hσ (τ.comp K.val) n, hd⟩
+
 run_cmd do
   let allowed := #[``propext, ``Classical.choice, ``Quot.sound]
   let endpoints := #[
+    ``hasAlgebraicRationalODE_iff_polynomialODE,
+    ``HasWideEArithmetic.numberField_conjugates,
+    ``isWideEValue_iff_algebraic_argument,
     ``wideLaurentOperatorExistence,
     ``wideLinearOrdinaryLiftingAtOne,
     ``wideEFunction_divAtAlgebraic,
@@ -47,6 +79,7 @@ run_cmd do
     ``ComplexLaurentPoints.isCoveringMap_proj,
     ``finiteEtaleLaurentBasis,
     ``finiteLaurentCoverHasKummerMap_algebraicComplex,
+    ``exists_kummerEquiv_of_connected_finiteEtaleLaurent,
     ``widePVKummerSectionExistence_of_geometry,
     ``widePVKummerSectionExistence_of_connectedGeometry,
     ``widePVKummerSectionExistence_of_kummerMap,
@@ -55,6 +88,10 @@ run_cmd do
     ``ramifiedModuleUnit_atOne,
     ``wideEValueUnit_iff_algebraicScalarExp_of_sections,
     ``isUnit_valueSubring_iff_algebraicScalarExp_of_pianzola,
+    ``ramifiedLaurentSum_analytic_properties,
+    ``exists_kummer_inverse_coordinates,
+    ``wideEValueUnit_iff_algebraicScalarExp,
+    ``isUnit_valueSubring_iff_algebraicScalarExp,
     ``exists_laurent_section_on_polynomial_open,
     ``affinePatch_isLocalizationAtRight,
     ``laurentAffinePatch_localizes_at_coordinate,
