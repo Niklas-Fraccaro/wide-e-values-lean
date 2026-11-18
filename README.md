@@ -1,6 +1,6 @@
-# Wide Siegel E-values
+# Broad Siegel E-values
 
-This Lean library proves that the units of the ring of wide Siegel E-values
+This Lean library proves that the units of the ring of broad Siegel E-values
 are exactly $a\exp(b)$ with $a$ and $b$ algebraic and $a\ne 0$.
 
 ## Main theorem
