@@ -87,7 +87,7 @@ private theorem tensor_field_isReduced {k E L : Type u} [Field k] [CharZero k]
   exact isReduced_of_injective e'.toRingEquiv e'.injective
 
 /-- Flatness embeds the relative tensor ring in the tensor of the fraction fields. -/
-private theorem flatDomainTensor_isReduced {R A : Type u} [CommRing R] [IsDomain R] [CharZero R]
+theorem flatDomainTensor_isReduced {R A : Type u} [CommRing R] [IsDomain R] [CharZero R]
     [CommRing A] [IsDomain A] [Algebra R A] [Module.Flat R A] [Algebra.FiniteType R A]
     (hi : Function.Injective (algebraMap R A)) : IsReduced (A ⊗[R] A) := by
   let K := FractionRing R

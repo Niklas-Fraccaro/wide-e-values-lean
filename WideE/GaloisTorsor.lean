@@ -21,10 +21,11 @@ variable {k F A B L : Type*} [CommRing k] [CommRing F] [CommRing A] [CommRing B]
 variable [Algebra k F] [Algebra k A] [Algebra F A] [IsScalarTower k F A]
 variable [Algebra k B] [Algebra k L] [Algebra F L] [IsScalarTower k F L]
 
-private def tensorPoint (p : A →ₐ[F] L) (q : B →ₐ[k] L) : A ⊗[k] B →ₐ[F] L :=
+/-- Evaluate both factors of a tensor product at algebra-valued points. -/
+def tensorPoint (p : A →ₐ[F] L) (q : B →ₐ[k] L) : A ⊗[k] B →ₐ[F] L :=
   Algebra.TensorProduct.lift p q fun _ _ => Commute.all _ _
 
-@[simp] private theorem tensorPoint_tmul (p : A →ₐ[F] L) (q : B →ₐ[k] L) (a : A) (b : B) :
+@[simp] theorem tensorPoint_tmul (p : A →ₐ[F] L) (q : B →ₐ[k] L) (a : A) (b : B) :
     tensorPoint p q (a ⊗ₜ[k] b) = p a * q b :=
   Algebra.TensorProduct.lift_tmul p q _ a b
 
@@ -37,7 +38,8 @@ private theorem tensorPoint_postcompose (σ : L →ₐ[F] L)
   | tmul x y =>
       simp only [tensorPoint_tmul, map_mul, AlgHom.comp_apply, AlgHom.restrictScalars_apply]
 
-private theorem tensorPoint_assoc {C : Type*} [CommRing C] [Algebra k C]
+/-- Evaluation of three tensor factors is compatible with the associator. -/
+theorem tensorPoint_assoc {C : Type*} [CommRing C] [Algebra k C]
     (p : A →ₐ[F] L) (q : B →ₐ[k] L) (r : C →ₐ[k] L) (z : (A ⊗[k] B) ⊗[k] C) :
     tensorPoint (tensorPoint p q) r z =
       tensorPoint p (tensorPoint q r) (Algebra.TensorProduct.assoc k A B C z) := by

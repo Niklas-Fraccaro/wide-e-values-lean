@@ -9,9 +9,21 @@ open Lean Elab Command
 
 example : WideLaurentOperatorExistence := wideLaurentOperatorExistence
 
+example : PianzolaForKummerAlgebras AlgebraicComplex := pianzolaForKummerAlgebras
+
+example : WidePVKummerSectionExistence := widePVKummerSectionExistence
+
+example {r : ℕ} (A : Matrix (Fin r) (Fin r) (LaurentPolynomial AlgebraicComplex)) :
+    ∃ q : ℕ, 0 < q ∧ Nonempty
+      (NormalizedLaurentComparison A (kummerAlgHom AlgebraicComplex q) (evalAtOneAlgHom AlgebraicComplex)) :=
+  exists_normalizedLaurentComparison A
+
 example (h : WidePVKummerSectionExistence) (ξ : ℂ) :
     IsWideEValueUnit ξ ↔ IsAlgebraicScalarExp ξ :=
   wideEValueUnit_iff_algebraicScalarExp_of_sections h ξ
+
+example (ξ : ℂ) : IsWideEValueUnit ξ ↔ IsAlgebraicScalarExp ξ :=
+  wideEValueUnit_iff_algebraicScalarExp_of_sections widePVKummerSectionExistence ξ
 
 example (h : PianzolaForKummerAlgebras AlgebraicComplex) (ξ : ℂ) :
     IsWideEValueUnit ξ ↔ IsAlgebraicScalarExp ξ :=
@@ -94,6 +106,13 @@ run_cmd do
     ``isUnit_valueSubring_iff_algebraicScalarExp,
     ``exists_liftFundamentalMatrix_of_generated,
     ``exists_normalizedLaurentComparison_of_pianzola,
+    ``exists_normalizedLaurentComparison,
+    ``widePVKummerSectionExistence,
+    ``pianzolaForKummerAlgebras,
+    ``hopfSmooth_of_charZero,
+    ``AffineHopfTorsor.exists_kummerSection,
+    ``strictEValueUnit_iff_algebraicScalarExp,
+    ``isUnit_strictEValueSubring_iff_algebraicScalarExp,
     ``exists_genericPoint_on_component_section,
     ``nonempty_section_of_identityComponent_generic_sections,
     ``exists_laurent_section_on_polynomial_open,

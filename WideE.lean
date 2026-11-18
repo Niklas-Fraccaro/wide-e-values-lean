@@ -8,9 +8,12 @@ import WideE.GeneratedPVComparison
 import WideE.GenericComponentSection
 import WideE.KummerFractionField
 import WideE.KummerSections
+import WideE.KummerTorsorSection
 import WideE.LaurentTorsorPatch
 import WideE.MatrixHilbert90
 import WideE.MultiplicativeTorsor
+import WideE.Pianzola
 import WideE.ProjectiveSection
 import WideE.RationalODE
+import WideE.StrictCorollary
 import WideE.TorsorFiltration
