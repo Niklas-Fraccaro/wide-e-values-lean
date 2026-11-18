@@ -1,0 +1,43 @@
+name: Lean verification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Build and audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1.7.1
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-github-cache: 'false'
+          use-mathlib-cache: 'true'
+
+      - name: Build the library and check axioms
+        shell: bash
+        run: |
+          lean --version
+          log="$RUNNER_TEMP/wide-e-lean.log"
+          ./build.sh build WideE +WideE.Audit 2>&1 | tee "$log"
+          if grep -F "declaration uses 'sorry'" "$log"; then
+            exit 1
+          fi
+          audit=$(grep -oE 'Checked the axioms of [0-9]+ WideE declarations\.' "$log")
+          git diff --exit-code -- lean-toolchain lake-manifest.json
+          {
+            printf '## Lean verification\n\n'
+            printf 'Commit `%s` passed with `%s`.\n\n' "$GITHUB_SHA" "$(cat lean-toolchain)"
+            printf '%s\n' "$audit"
+          } >> "$GITHUB_STEP_SUMMARY"

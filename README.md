@@ -35,3 +35,10 @@ lake exe cache get
 The final command builds the library and checks that the audited declarations
 depend only on `propext`, `Classical.choice`, and `Quot.sound`.
 See [WideE/Audit.lean](WideE/Audit.lean).
+
+## Verification
+
+[![Lean verification](https://github.com/Niklas-Fraccaro/wide-e-values-lean/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/Niklas-Fraccaro/wide-e-values-lean/actions/workflows/lean.yml)
+
+The workflow starts from a fresh Linux checkout and uses the Mathlib cache.
+It builds the library and runs its axiom audit.
